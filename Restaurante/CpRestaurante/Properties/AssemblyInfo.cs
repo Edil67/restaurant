@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CpRestaurante")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("HP Inc.")]
 [assembly: AssemblyProduct("CpRestaurante")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCopyright("Copyright © HP Inc. 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("76990c77-28e0-407b-a050-a4a63e331e23")]
+[assembly: Guid("2675a226-4d86-46c3-a8bb-ada4dcd69651")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
