@@ -30,27 +30,27 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMenu));
             this.nudPrecioVenta = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbxUnidadMedida = new System.Windows.Forms.ComboBox();
+            this.lblPrecioVenta = new System.Windows.Forms.Label();
+            this.cbxTipo = new System.Windows.Forms.ComboBox();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.txtCodigo = new System.Windows.Forms.TextBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblTipo = new System.Windows.Forms.Label();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.pnlAcciones = new System.Windows.Forms.Panel();
+            this.btnCerrar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.dgvLista = new System.Windows.Forms.DataGridView();
             this.gbxListado = new System.Windows.Forms.GroupBox();
             this.txtParametro = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.btnNuevo = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVenta)).BeginInit();
             this.pnlAcciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
@@ -70,23 +70,23 @@
             this.nudPrecioVenta.Size = new System.Drawing.Size(102, 20);
             this.nudPrecioVenta.TabIndex = 9;
             // 
-            // label3
+            // lblPrecioVenta
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(413, 47);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Precio de Venta (Bs.):";
+            this.lblPrecioVenta.AutoSize = true;
+            this.lblPrecioVenta.Location = new System.Drawing.Point(413, 47);
+            this.lblPrecioVenta.Name = "lblPrecioVenta";
+            this.lblPrecioVenta.Size = new System.Drawing.Size(110, 13);
+            this.lblPrecioVenta.TabIndex = 7;
+            this.lblPrecioVenta.Text = "Precio de Venta (Bs.):";
             // 
-            // cbxUnidadMedida
+            // cbxTipo
             // 
-            this.cbxUnidadMedida.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxUnidadMedida.FormattingEnabled = true;
-            this.cbxUnidadMedida.Location = new System.Drawing.Point(144, 91);
-            this.cbxUnidadMedida.Name = "cbxUnidadMedida";
-            this.cbxUnidadMedida.Size = new System.Drawing.Size(196, 21);
-            this.cbxUnidadMedida.TabIndex = 5;
+            this.cbxTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxTipo.FormattingEnabled = true;
+            this.cbxTipo.Location = new System.Drawing.Point(144, 91);
+            this.cbxTipo.Name = "cbxTipo";
+            this.cbxTipo.Size = new System.Drawing.Size(196, 21);
+            this.cbxTipo.TabIndex = 5;
             // 
             // txtDescripcion
             // 
@@ -97,23 +97,23 @@
             this.txtDescripcion.Size = new System.Drawing.Size(196, 41);
             this.txtDescripcion.TabIndex = 4;
             // 
-            // txtCodigo
+            // txtNombre
             // 
-            this.txtCodigo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCodigo.Location = new System.Drawing.Point(144, 17);
-            this.txtCodigo.MaxLength = 20;
-            this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(196, 20);
-            this.txtCodigo.TabIndex = 3;
+            this.txtNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNombre.Location = new System.Drawing.Point(144, 17);
+            this.txtNombre.MaxLength = 20;
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(196, 20);
+            this.txtNombre.TabIndex = 3;
             // 
             // lblTipo
             // 
             this.lblTipo.AutoSize = true;
             this.lblTipo.Location = new System.Drawing.Point(6, 94);
             this.lblTipo.Name = "lblTipo";
-            this.lblTipo.Size = new System.Drawing.Size(31, 13);
+            this.lblTipo.Size = new System.Drawing.Size(73, 13);
             this.lblTipo.TabIndex = 2;
-            this.lblTipo.Text = "Tipo:";
+            this.lblTipo.Text = "Tipo de Plato:";
             // 
             // lblDescripcion
             // 
@@ -143,6 +143,57 @@
             this.pnlAcciones.Name = "pnlAcciones";
             this.pnlAcciones.Size = new System.Drawing.Size(737, 47);
             this.pnlAcciones.TabIndex = 12;
+            // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Image = global::CpRestaurante.Properties.Resources.cancel_40dp_000000_FILL1_wght400_GRAD0_opsz40;
+            this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCerrar.Location = new System.Drawing.Point(468, 3);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(93, 40);
+            this.btnCerrar.TabIndex = 9;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Image = global::CpRestaurante.Properties.Resources.delete_40dp_000000_FILL1_wght400_GRAD0_opsz40;
+            this.btnEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEliminar.Location = new System.Drawing.Point(364, 3);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(98, 40);
+            this.btnEliminar.TabIndex = 8;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Image = global::CpRestaurante.Properties.Resources.edit_40dp_000000_FILL1_wght400_GRAD0_opsz40;
+            this.btnEditar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEditar.Location = new System.Drawing.Point(266, 3);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(92, 40);
+            this.btnEditar.TabIndex = 7;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Image = global::CpRestaurante.Properties.Resources.add_circle_40dp_000000_FILL1_wght400_GRAD0_opsz40;
+            this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNuevo.Location = new System.Drawing.Point(168, 3);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(92, 40);
+            this.btnNuevo.TabIndex = 6;
+            this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // dgvLista
             // 
@@ -201,10 +252,10 @@
             this.gbxDatos.Controls.Add(this.btnCancelar);
             this.gbxDatos.Controls.Add(this.btnGuardar);
             this.gbxDatos.Controls.Add(this.nudPrecioVenta);
-            this.gbxDatos.Controls.Add(this.label3);
-            this.gbxDatos.Controls.Add(this.cbxUnidadMedida);
+            this.gbxDatos.Controls.Add(this.lblPrecioVenta);
+            this.gbxDatos.Controls.Add(this.cbxTipo);
             this.gbxDatos.Controls.Add(this.txtDescripcion);
-            this.gbxDatos.Controls.Add(this.txtCodigo);
+            this.gbxDatos.Controls.Add(this.txtNombre);
             this.gbxDatos.Controls.Add(this.lblTipo);
             this.gbxDatos.Controls.Add(this.lblDescripcion);
             this.gbxDatos.Controls.Add(this.lblNombre);
@@ -214,66 +265,6 @@
             this.gbxDatos.TabIndex = 13;
             this.gbxDatos.TabStop = false;
             this.gbxDatos.Text = "Datos";
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Image = global::CpRestaurante.Properties.Resources.search_40dp_000000_FILL1_wght400_GRAD0_opsz40;
-            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(672, 36);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(92, 40);
-            this.btnBuscar.TabIndex = 10;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // btnCerrar
-            // 
-            this.btnCerrar.Image = global::CpRestaurante.Properties.Resources.cancel_40dp_000000_FILL1_wght400_GRAD0_opsz40;
-            this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCerrar.Location = new System.Drawing.Point(468, 3);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(93, 40);
-            this.btnCerrar.TabIndex = 9;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCerrar.UseVisualStyleBackColor = true;
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Image = global::CpRestaurante.Properties.Resources.delete_40dp_000000_FILL1_wght400_GRAD0_opsz40;
-            this.btnEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEliminar.Location = new System.Drawing.Point(364, 3);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(98, 40);
-            this.btnEliminar.TabIndex = 8;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Image = global::CpRestaurante.Properties.Resources.edit_40dp_000000_FILL1_wght400_GRAD0_opsz40;
-            this.btnEditar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditar.Location = new System.Drawing.Point(266, 3);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(92, 40);
-            this.btnEditar.TabIndex = 7;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEditar.UseVisualStyleBackColor = true;
-            // 
-            // btnNuevo
-            // 
-            this.btnNuevo.Image = global::CpRestaurante.Properties.Resources.add_circle_40dp_000000_FILL1_wght400_GRAD0_opsz40;
-            this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(168, 3);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(92, 40);
-            this.btnNuevo.TabIndex = 6;
-            this.btnNuevo.Text = "Nuevo";
-            this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNuevo.UseVisualStyleBackColor = true;
             // 
             // btnCancelar
             // 
@@ -286,6 +277,7 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnGuardar
             // 
@@ -298,6 +290,19 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardar.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = global::CpRestaurante.Properties.Resources.search_40dp_000000_FILL1_wght400_GRAD0_opsz40;
+            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscar.Location = new System.Drawing.Point(672, 36);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(92, 40);
+            this.btnBuscar.TabIndex = 10;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // FrmMenu
             // 
@@ -332,10 +337,10 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.NumericUpDown nudPrecioVenta;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cbxUnidadMedida;
+        private System.Windows.Forms.Label lblPrecioVenta;
+        private System.Windows.Forms.ComboBox cbxTipo;
         private System.Windows.Forms.TextBox txtDescripcion;
-        private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblTipo;
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.Button btnCerrar;
