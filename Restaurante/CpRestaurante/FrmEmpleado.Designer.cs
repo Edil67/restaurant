@@ -36,9 +36,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpleado = new System.Windows.Forms.Label();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
+            this.lblCargo = new System.Windows.Forms.Label();
+            this.txtSegundoApellido = new System.Windows.Forms.TextBox();
+            this.txtDirección = new System.Windows.Forms.TextBox();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.lbltelefono = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.cbxTipoMenu = new System.Windows.Forms.ComboBox();
+            this.cbxCargo = new System.Windows.Forms.ComboBox();
             this.txtPrimerApellido = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblSegundoApellido = new System.Windows.Forms.Label();
@@ -54,12 +60,6 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.lblDireccion = new System.Windows.Forms.Label();
-            this.lblDirección = new System.Windows.Forms.TextBox();
-            this.txtSegundoApellido = new System.Windows.Forms.TextBox();
-            this.lblCargo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpDescripcion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombre)).BeginInit();
@@ -87,9 +87,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(34, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(169, 13);
+            this.label2.Size = new System.Drawing.Size(138, 13);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Buscar por Nombre o Descripción ";
+            this.label2.Text = "Buscar por Nombre o Cargo";
             // 
             // lblEmpleado
             // 
@@ -107,13 +107,13 @@
             // 
             this.gbxDatos.Controls.Add(this.lblCargo);
             this.gbxDatos.Controls.Add(this.txtSegundoApellido);
-            this.gbxDatos.Controls.Add(this.lblDirección);
+            this.gbxDatos.Controls.Add(this.txtDirección);
             this.gbxDatos.Controls.Add(this.lblDireccion);
             this.gbxDatos.Controls.Add(this.txtTelefono);
-            this.gbxDatos.Controls.Add(this.label1);
+            this.gbxDatos.Controls.Add(this.lbltelefono);
             this.gbxDatos.Controls.Add(this.btnCancelar);
             this.gbxDatos.Controls.Add(this.btnGuardar);
-            this.gbxDatos.Controls.Add(this.cbxTipoMenu);
+            this.gbxDatos.Controls.Add(this.cbxCargo);
             this.gbxDatos.Controls.Add(this.txtPrimerApellido);
             this.gbxDatos.Controls.Add(this.txtNombre);
             this.gbxDatos.Controls.Add(this.lblSegundoApellido);
@@ -125,6 +125,58 @@
             this.gbxDatos.TabIndex = 20;
             this.gbxDatos.TabStop = false;
             this.gbxDatos.Text = "Datos";
+            // 
+            // lblCargo
+            // 
+            this.lblCargo.AutoSize = true;
+            this.lblCargo.Location = new System.Drawing.Point(364, 97);
+            this.lblCargo.Name = "lblCargo";
+            this.lblCargo.Size = new System.Drawing.Size(38, 13);
+            this.lblCargo.TabIndex = 16;
+            this.lblCargo.Text = "Cargo:";
+            // 
+            // txtSegundoApellido
+            // 
+            this.txtSegundoApellido.Location = new System.Drawing.Point(144, 86);
+            this.txtSegundoApellido.MaxLength = 200;
+            this.txtSegundoApellido.Multiline = true;
+            this.txtSegundoApellido.Name = "txtSegundoApellido";
+            this.txtSegundoApellido.Size = new System.Drawing.Size(196, 25);
+            this.txtSegundoApellido.TabIndex = 15;
+            // 
+            // txtDirección
+            // 
+            this.txtDirección.Location = new System.Drawing.Point(422, 56);
+            this.txtDirección.MaxLength = 200;
+            this.txtDirección.Multiline = true;
+            this.txtDirección.Name = "txtDirección";
+            this.txtDirección.Size = new System.Drawing.Size(169, 25);
+            this.txtDirección.TabIndex = 14;
+            // 
+            // lblDireccion
+            // 
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.Location = new System.Drawing.Point(364, 59);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(55, 13);
+            this.lblDireccion.TabIndex = 13;
+            this.lblDireccion.Text = "Dirección:";
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.Location = new System.Drawing.Point(422, 20);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(169, 20);
+            this.txtTelefono.TabIndex = 12;
+            // 
+            // lbltelefono
+            // 
+            this.lbltelefono.AutoSize = true;
+            this.lbltelefono.Location = new System.Drawing.Point(364, 24);
+            this.lbltelefono.Name = "lbltelefono";
+            this.lbltelefono.Size = new System.Drawing.Size(52, 13);
+            this.lbltelefono.TabIndex = 11;
+            this.lbltelefono.Text = "Telefono:";
             // 
             // btnCancelar
             // 
@@ -150,14 +202,14 @@
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardar.UseVisualStyleBackColor = true;
             // 
-            // cbxTipoMenu
+            // cbxCargo
             // 
-            this.cbxTipoMenu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxTipoMenu.FormattingEnabled = true;
-            this.cbxTipoMenu.Location = new System.Drawing.Point(422, 94);
-            this.cbxTipoMenu.Name = "cbxTipoMenu";
-            this.cbxTipoMenu.Size = new System.Drawing.Size(169, 21);
-            this.cbxTipoMenu.TabIndex = 5;
+            this.cbxCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCargo.FormattingEnabled = true;
+            this.cbxCargo.Location = new System.Drawing.Point(422, 94);
+            this.cbxCargo.Name = "cbxCargo";
+            this.cbxCargo.Size = new System.Drawing.Size(169, 21);
+            this.cbxCargo.TabIndex = 5;
             // 
             // txtPrimerApellido
             // 
@@ -311,58 +363,6 @@
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(364, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Telefono:";
-            // 
-            // txtTelefono
-            // 
-            this.txtTelefono.Location = new System.Drawing.Point(422, 20);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(169, 20);
-            this.txtTelefono.TabIndex = 12;
-            // 
-            // lblDireccion
-            // 
-            this.lblDireccion.AutoSize = true;
-            this.lblDireccion.Location = new System.Drawing.Point(364, 59);
-            this.lblDireccion.Name = "lblDireccion";
-            this.lblDireccion.Size = new System.Drawing.Size(55, 13);
-            this.lblDireccion.TabIndex = 13;
-            this.lblDireccion.Text = "Dirección:";
-            // 
-            // lblDirección
-            // 
-            this.lblDirección.Location = new System.Drawing.Point(422, 56);
-            this.lblDirección.MaxLength = 200;
-            this.lblDirección.Multiline = true;
-            this.lblDirección.Name = "lblDirección";
-            this.lblDirección.Size = new System.Drawing.Size(169, 25);
-            this.lblDirección.TabIndex = 14;
-            // 
-            // txtSegundoApellido
-            // 
-            this.txtSegundoApellido.Location = new System.Drawing.Point(144, 86);
-            this.txtSegundoApellido.MaxLength = 200;
-            this.txtSegundoApellido.Multiline = true;
-            this.txtSegundoApellido.Name = "txtSegundoApellido";
-            this.txtSegundoApellido.Size = new System.Drawing.Size(196, 25);
-            this.txtSegundoApellido.TabIndex = 15;
-            // 
-            // lblCargo
-            // 
-            this.lblCargo.AutoSize = true;
-            this.lblCargo.Location = new System.Drawing.Point(364, 97);
-            this.lblCargo.Name = "lblCargo";
-            this.lblCargo.Size = new System.Drawing.Size(38, 13);
-            this.lblCargo.TabIndex = 16;
-            this.lblCargo.Text = "Cargo:";
-            // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -403,7 +403,7 @@
         private System.Windows.Forms.GroupBox gbxDatos;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.ComboBox cbxTipoMenu;
+        private System.Windows.Forms.ComboBox cbxCargo;
         private System.Windows.Forms.TextBox txtPrimerApellido;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblSegundoApellido;
@@ -420,10 +420,10 @@
         private System.Windows.Forms.ErrorProvider erpDescripcion;
         private System.Windows.Forms.ErrorProvider erpNombre;
         private System.Windows.Forms.ErrorProvider erpTipoMenu;
-        private System.Windows.Forms.TextBox lblDirección;
+        private System.Windows.Forms.TextBox txtDirección;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.TextBox txtTelefono;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbltelefono;
         private System.Windows.Forms.TextBox txtSegundoApellido;
         private System.Windows.Forms.Label lblCargo;
     }
