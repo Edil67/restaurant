@@ -39,8 +39,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="descripcion" Type="varchar" MaxLength="200" />
-          <Property Name="tipo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="idTipoMenu" Type="int" Nullable="false" />
           <Property Name="precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="usuarioRegistro" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
@@ -69,6 +69,16 @@
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
         </EntityType>
+        <EntityType Name="TipoMenu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
+          <Property Name="estado" Type="smallint" Nullable="false" />
+        </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id" />
@@ -81,6 +91,18 @@
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
         </EntityType>
+        <Association Name="fk_Menu_TipoMenu">
+          <End Role="TipoMenu" Type="Self.TipoMenu" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMenu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="idTipoMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Pedido_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
@@ -165,7 +187,12 @@
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PedidoDetalle" EntityType="Self.PedidoDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoMenu" EntityType="Self.TipoMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Menu_TipoMenu" Association="Self.fk_Menu_TipoMenu">
+            <End Role="TipoMenu" EntitySet="TipoMenu" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
           <AssociationSet Name="fk_Pedido_Cliente" Association="Self.fk_Pedido_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Pedidos" EntitySet="Pedidos" />
@@ -229,12 +256,13 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoMenu" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="usuarioRegistro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="TipoMenu" Relationship="Self.fk_Menu_TipoMenu" FromRole="Menu" ToRole="TipoMenu" />
           <NavigationProperty Name="PedidoDetalle" Relationship="Self.fk_PedidoDetalle_Menu" FromRole="Menu" ToRole="PedidoDetalle" />
         </EntityType>
         <EntityType Name="PedidoDetalle">
@@ -264,6 +292,17 @@
           <NavigationProperty Name="Cliente" Relationship="Self.fk_Pedido_Cliente" FromRole="Pedidos" ToRole="Cliente" />
           <NavigationProperty Name="Empleado" Relationship="Self.fk_Pedido_Empleado" FromRole="Pedidos" ToRole="Empleado" />
           <NavigationProperty Name="PedidoDetalle" Relationship="Self.fk_PedidoDetalle_Pedido" FromRole="Pedidos" ToRole="PedidoDetalle" />
+        </EntityType>
+        <EntityType Name="TipoMenu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="estado" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="Self.fk_Menu_TipoMenu" FromRole="TipoMenu" ToRole="Menu" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -314,6 +353,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Menu_TipoMenu">
+          <End Role="TipoMenu" Type="Self.TipoMenu" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMenu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="idTipoMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PedidoDetalle_Menu">
           <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
           <End Role="PedidoDetalle" Type="Self.PedidoDetalle" Multiplicity="*" />
@@ -344,6 +395,7 @@
           <EntitySet Name="Menu" EntityType="Self.Menu" />
           <EntitySet Name="PedidoDetalle" EntityType="Self.PedidoDetalle" />
           <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+          <EntitySet Name="TipoMenu" EntityType="Self.TipoMenu" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="fk_Pedido_Cliente" Association="Self.fk_Pedido_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -356,6 +408,10 @@
           <AssociationSet Name="fk_Usuarios_Empleado" Association="Self.fk_Usuarios_Empleado">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Menu_TipoMenu" Association="Self.fk_Menu_TipoMenu">
+            <End Role="TipoMenu" EntitySet="TipoMenu" />
+            <End Role="Menu" EntitySet="Menu" />
           </AssociationSet>
           <AssociationSet Name="fk_PedidoDetalle_Menu" Association="Self.fk_PedidoDetalle_Menu">
             <End Role="Menu" EntitySet="Menu" />
@@ -408,9 +464,10 @@
         </ComplexType>
         <ComplexType Name="paMenuListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="idTipoMenu" Nullable="false" />
           <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="descripcion" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="tipo" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="descripcion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="tipoMenu" Nullable="false" MaxLength="30" />
           <Property Type="Decimal" Name="precio" Nullable="false" Precision="10" Scale="2" />
           <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="20" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
@@ -483,7 +540,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="idTipoMenu" ColumnName="idTipoMenu" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
@@ -510,6 +567,17 @@
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
                 <ScalarProperty Name="fechaPedido" ColumnName="fechaPedido" />
                 <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoMenu">
+            <EntityTypeMapping TypeName="LabRestauranteModel.TipoMenu">
+              <MappingFragment StoreEntitySet="TipoMenu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
@@ -563,9 +631,10 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="LabRestauranteModel.paMenuListar_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idTipoMenu" ColumnName="idTipoMenu" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="tipoMenu" ColumnName="tipoMenu" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />

@@ -1,4 +1,5 @@
-﻿CREATE DATABASE LabRestaurante;
+﻿
+CREATE DATABASE LabRestaurante;
 GO
 
 USE master;
@@ -18,30 +19,49 @@ GO
 ALTER ROLE db_owner ADD MEMBER usrrestaurante;
 GO
 
--- 🔹 Eliminar tablas en orden correcto
+
+-- ELIMINAR TABLAS EXISTENTES (si las hay)
+
 DROP TABLE IF EXISTS PedidoDetalle;
 DROP TABLE IF EXISTS Pedidos;
 DROP TABLE IF EXISTS Usuarios;
 DROP TABLE IF EXISTS Empleado;
 DROP TABLE IF EXISTS Cliente;
 DROP TABLE IF EXISTS Menu;
+DROP TABLE IF EXISTS TipoMenu;
 GO
 
--- 🔹 TABLAS
 
--- MENÚ
+-- TABLA: TipoMenu
+
+CREATE TABLE TipoMenu (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    descripcion VARCHAR(30) NOT NULL UNIQUE,
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1 -- -1: Eliminado, 0: Inactivo, 1: Activo
+);
+GO
+
+
+-- TABLA: Menu
+
 CREATE TABLE Menu (
     id INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(50) NOT NULL,
     descripcion VARCHAR(100),
-    tipo VARCHAR(50),
+    idTipoMenu INT NOT NULL,
     precio DECIMAL(10,2) NOT NULL CHECK (precio > 0),
     usuarioRegistro VARCHAR(20) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
-    estado SMALLINT NOT NULL DEFAULT 1
+    estado SMALLINT NOT NULL DEFAULT 1,
+    CONSTRAINT fk_Menu_TipoMenu FOREIGN KEY (idTipoMenu) REFERENCES TipoMenu(id)
 );
+GO
 
--- CLIENTE
+
+-- TABLA: Cliente
+
 CREATE TABLE Cliente (
     id INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(50) NOT NULL,
@@ -52,8 +72,11 @@ CREATE TABLE Cliente (
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1
 );
+GO
 
--- EMPLEADO
+
+-- TABLA: Empleado
+
 CREATE TABLE Empleado (
     id INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(30) NOT NULL,
@@ -66,8 +89,11 @@ CREATE TABLE Empleado (
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1
 );
+GO
 
--- USUARIOS
+
+-- TABLA: Usuarios
+
 CREATE TABLE Usuarios (
     id INT PRIMARY KEY IDENTITY(1,1),
     usuario VARCHAR(30) NOT NULL,
@@ -78,8 +104,11 @@ CREATE TABLE Usuarios (
     estado SMALLINT NOT NULL DEFAULT 1,
     CONSTRAINT fk_Usuarios_Empleado FOREIGN KEY(idEmpleado) REFERENCES Empleado(id)
 );
+GO
 
--- PEDIDOS
+
+-- TABLA: Pedidos
+
 CREATE TABLE Pedidos (
     id INT PRIMARY KEY IDENTITY(1,1),
     idCliente INT NOT NULL,
@@ -92,8 +121,11 @@ CREATE TABLE Pedidos (
     CONSTRAINT fk_Pedido_Cliente FOREIGN KEY(idCliente) REFERENCES Cliente(id),
     CONSTRAINT fk_Pedido_Empleado FOREIGN KEY(idEmpleado) REFERENCES Empleado(id)
 );
+GO
 
--- DETALLE PEDIDO
+
+-- TABLA: PedidoDetalle
+
 CREATE TABLE PedidoDetalle (
     id INT PRIMARY KEY IDENTITY(1,1),
     idPedido INT NOT NULL,
@@ -105,7 +137,9 @@ CREATE TABLE PedidoDetalle (
 );
 GO
 
--- TRIGGER
+
+-- TRIGGER: Calcular Subtotal
+
 CREATE TRIGGER trg_CalcularSubtotal
 ON PedidoDetalle
 AFTER INSERT, UPDATE
@@ -119,7 +153,15 @@ BEGIN
 END;
 GO
 
--- 🔹 DATOS DE PRUEBA
+
+-- DATOS DE PRUEBA
+
+INSERT INTO TipoMenu(descripcion) VALUES
+('Entrada'),
+('Plato Fuerte'),
+('Sopa'),
+('Postre'),
+('Bebida');
 
 INSERT INTO Empleado (nombre, primerApellido, segundoApellido, telefono, direccion, cargo)
 VALUES 
@@ -132,11 +174,11 @@ VALUES
 ('Pablo', 'Padilla', 'Arandia', '14181236'),
 ('Mariana', 'Velazco', 'Gutierrez', '7895411');
 
-INSERT INTO Menu (nombre, descripcion, tipo, precio)
+INSERT INTO Menu (nombre, descripcion, idTipoMenu, precio)
 VALUES 
-('Lasaña', 'Pasta al horno con carne y queso', 'Plato Fuerte', 45.00),
-('Sopa de Maní', 'Sopa tradicional boliviana con maní y papas fritas', 'Entrada', 25.00),
-('Flan', 'Postre con caramelo', 'Postre', 15.00);
+('Lasaña', 'Pasta al horno con carne y queso', 2, 45.00),
+('Sopa de Maní', 'Sopa tradicional boliviana con maní y papas fritas', 3, 25.00),
+('Flan', 'Postre con caramelo', 4, 15.00);
 
 INSERT INTO Pedidos (idCliente, idEmpleado, total)
 VALUES 
@@ -150,7 +192,10 @@ VALUES
 (2, 2, 3);
 GO
 
--- 🔹 PROCEDIMIENTOS
+
+-- PROCEDIMIENTOS ALMACENADOS
+
+
 DROP PROC IF EXISTS paClienteListar;
 DROP PROC IF EXISTS paEmpleadoListar;
 DROP PROC IF EXISTS paMenuListar;
@@ -177,14 +222,28 @@ BEGIN
 END;
 GO
 
+GO
+DROP PROC IF EXISTS paMenuListar;
+GO
 CREATE PROC paMenuListar @parametro VARCHAR(50)
 AS
-BEGIN
-    SELECT id, nombre, descripcion, tipo, precio, usuarioRegistro, fechaRegistro, estado
-    FROM Menu
-    WHERE estado <> -1 AND nombre LIKE '%' + REPLACE(@parametro,' ','%') + '%';
-END;
+SELECT 
+    m.id, 
+    m.idTipoMenu,
+    m.nombre, 
+    m.descripcion,
+    t.descripcion AS tipoMenu,  
+    m.precio, 
+    m.usuarioRegistro, 
+    m.fechaRegistro, 
+    m.estado
+FROM Menu m
+INNER JOIN TipoMenu t ON t.id = m.idTipoMenu
+WHERE m.estado > -1 
+  AND (m.nombre + t.descripcion) LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
+ORDER BY m.estado DESC, m.nombre ASC;
 GO
+
 
 CREATE PROC paUsuariosListar @parametro VARCHAR(50)
 AS
@@ -210,20 +269,32 @@ GO
 CREATE PROC paPedidoDetalleListar @idPedido INT
 AS
 BEGIN
-    SELECT d.id, d.idPedido, m.nombre AS menu, m.tipo, d.cantidad, d.subtotal
+    SELECT 
+        d.id, 
+        d.idPedido, 
+        m.nombre AS menu, 
+        t.descripcion AS tipo, 
+        d.cantidad, 
+        d.subtotal
     FROM PedidoDetalle d
     INNER JOIN Menu m ON d.idMenu = m.id
+    INNER JOIN TipoMenu t ON m.idTipoMenu = t.id
     WHERE d.idPedido = @idPedido;
 END;
 GO
 
--- 🔹 ACTUALIZAR TOTALES
+
+-- ACTUALIZAR TOTALES DE PEDIDOS
+
 UPDATE p
 SET total = (SELECT SUM(subtotal) FROM PedidoDetalle WHERE idPedido = p.id)
 FROM Pedidos p;
 GO
 
--- 🔹 CONSULTAS DE PRUEBA
+
+-- CONSULTAS DE PRUEBA
+
+SELECT * FROM TipoMenu;
 SELECT * FROM Cliente;
 SELECT * FROM Empleado;
 SELECT * FROM Menu;

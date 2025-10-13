@@ -23,12 +23,13 @@ namespace CadRestaurante
         public int id { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
-        public string tipo { get; set; }
+        public int idTipoMenu { get; set; }
         public decimal precio { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
         public short estado { get; set; }
     
+        public virtual TipoMenu TipoMenu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PedidoDetalle> PedidoDetalle { get; set; }
     }

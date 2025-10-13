@@ -24,10 +24,11 @@ namespace CpRestaurante
             var lista = MenuCln.listarPa(txtParametro.Text.Trim());
             dgvLista.DataSource = lista;
             dgvLista.Columns["id"].Visible = false;
+            dgvLista.Columns["idTipoMenu"].Visible = false;
             dgvLista.Columns["estado"].Visible = false;
             dgvLista.Columns["nombre"].HeaderText = "Nombre";
+            dgvLista.Columns["tipoMenu"].HeaderText = "Tipo Menú";
             dgvLista.Columns["descripcion"].HeaderText = "Descripción";
-            dgvLista.Columns["tipo"].HeaderText = "Tipo de Plato";
             dgvLista.Columns["precio"].HeaderText = "Precio";
             dgvLista.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
             dgvLista.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
@@ -36,10 +37,18 @@ namespace CpRestaurante
             btnEditar.Enabled = lista.Count > 0;
             btnEliminar.Enabled = lista.Count > 0;
         }
-
+        private void cargarTipoMenu()
+        {
+            var lista = TipoMenuCln.listar();
+            cbxTipoMenu.DataSource = lista;
+            cbxTipoMenu.ValueMember = "id";
+            cbxTipoMenu.DisplayMember = "descripcion";
+            cbxTipoMenu.SelectedIndex = -1;
+        }
         private void FrmMenu_Load(object sender, EventArgs e)
         {
             listar();
+            cargarTipoMenu();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -57,14 +66,16 @@ namespace CpRestaurante
             var menu = MenuCln.obtener(id);
             txtNombre.Text = menu.nombre;
             txtDescripcion.Text = menu.descripcion;
-            cbxTipo.Text = menu.tipo;
+            cbxTipoMenu.SelectedValue = menu.idTipoMenu;
             nudPrecioVenta.Value = menu.precio;
+
+            txtNombre.Focus();
         }
         private void Limpiar()
         {
             txtNombre.Clear();
             txtDescripcion.Clear();
-            cbxTipo.SelectedIndex = -1;
+            cbxTipoMenu.SelectedIndex = -1;
             nudPrecioVenta.Value = 0;
         }
 

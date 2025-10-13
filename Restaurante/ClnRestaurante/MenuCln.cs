@@ -25,9 +25,9 @@ namespace ClnRestaurante
             using (var context = new LabRestauranteEntities())
             {
                 var existente = context.Menu.Find(menu.id);
+                existente.idTipoMenu = menu.idTipoMenu;
                 existente.nombre = menu.nombre;
                 existente.descripcion = menu.descripcion;
-                existente.tipo = menu.tipo;
                 existente.precio = menu.precio;
                 existente.usuarioRegistro = menu.usuarioRegistro;
                 return context.SaveChanges();

@@ -32,6 +32,7 @@ namespace CadRestaurante
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<PedidoDetalle> PedidoDetalle { get; set; }
         public virtual DbSet<Pedidos> Pedidos { get; set; }
+        public virtual DbSet<TipoMenu> TipoMenu { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
     
         public virtual ObjectResult<paClienteListar_Result> paClienteListar(string parametro)

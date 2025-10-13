@@ -4,16 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="851a047627a74c6192bf59a7e6c8f78d" Name="Diagram1">
+      <Diagram DiagramId="67bb2c15d8794c7592d37fb8a2835486" Name="Diagram1">
         <EntityTypeShape EntityType="LabRestauranteModel.Cliente" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LabRestauranteModel.Empleado" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LabRestauranteModel.Menu" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRestauranteModel.Menu" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LabRestauranteModel.PedidoDetalle" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="LabRestauranteModel.Pedidos" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabRestauranteModel.TipoMenu" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="LabRestauranteModel.Usuarios" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="LabRestauranteModel.fk_Pedido_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="LabRestauranteModel.fk_Pedido_Empleado" ManuallyRouted="false" />
         <AssociationConnector Association="LabRestauranteModel.fk_Usuarios_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="LabRestauranteModel.fk_Menu_TipoMenu" ManuallyRouted="false" />
         <AssociationConnector Association="LabRestauranteModel.fk_PedidoDetalle_Menu" ManuallyRouted="false" />
         <AssociationConnector Association="LabRestauranteModel.fk_PedidoDetalle_Pedido" ManuallyRouted="false" />
       </Diagram>

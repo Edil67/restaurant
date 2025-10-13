@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="MenuCln.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoMenuCln.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CadRestaurante\CadRestaurante.csproj">
