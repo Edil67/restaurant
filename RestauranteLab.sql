@@ -52,7 +52,7 @@ CREATE TABLE Menu (
     descripcion VARCHAR(100),
     idTipoMenu INT NOT NULL,
     precio DECIMAL(10,2) NOT NULL CHECK (precio > 0),
-    usuarioRegistro VARCHAR(20) NOT NULL DEFAULT SUSER_NAME(),
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1,
     CONSTRAINT fk_Menu_TipoMenu FOREIGN KEY (idTipoMenu) REFERENCES TipoMenu(id)
@@ -68,7 +68,7 @@ CREATE TABLE Cliente (
     primerApellido VARCHAR(30) NOT NULL,
     segundoApellido VARCHAR(30) NOT NULL,
     cedulaIdentidad VARCHAR(15) NOT NULL UNIQUE,
-    usuarioRegistro VARCHAR(20) NOT NULL DEFAULT SUSER_NAME(),
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1
 );
@@ -85,7 +85,7 @@ CREATE TABLE Empleado (
     telefono VARCHAR(8) NOT NULL,
     direccion VARCHAR(50) NOT NULL,
     cargo VARCHAR(30) NOT NULL,
-    usuarioRegistro VARCHAR(20) NOT NULL DEFAULT SUSER_NAME(),
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1
 );
@@ -99,7 +99,7 @@ CREATE TABLE Usuarios (
     usuario VARCHAR(30) NOT NULL,
     clave VARCHAR(100) NOT NULL,
     idEmpleado INT NOT NULL,
-    usuarioRegistro VARCHAR(20) NOT NULL DEFAULT SUSER_NAME(),
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1,
     CONSTRAINT fk_Usuarios_Empleado FOREIGN KEY(idEmpleado) REFERENCES Empleado(id)
@@ -115,7 +115,7 @@ CREATE TABLE Pedidos (
     idEmpleado INT NOT NULL,
     fechaPedido DATETIME NOT NULL DEFAULT GETDATE(),
     total DECIMAL(10,2) DEFAULT 0 CHECK (total >= 0),
-    usuarioRegistro VARCHAR(20) NOT NULL DEFAULT SUSER_NAME(),
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1,
     CONSTRAINT fk_Pedido_Cliente FOREIGN KEY(idCliente) REFERENCES Cliente(id),
