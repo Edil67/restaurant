@@ -33,13 +33,13 @@ namespace ClnRestaurante
                 return context.SaveChanges();
             }
         }
-        public static int eliminar(int idc, string usuarioRegistro)
+        public static int eliminar(int id, string usuarioRegistro)
         {
             using (var context = new LabRestauranteEntities())
             {
-                var existente = context.Menu.Find(id);
-                existente.estado = -1;
-                existente.usuarioRegistro = usuarioRegistro;
+                var existe = context.Menu.Find(id);
+                existe.estado = -1;
+                existe.usuarioRegistro = usuarioRegistro;
                 return context.SaveChanges();
             }
         }

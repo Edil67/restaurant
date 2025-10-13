@@ -1,12 +1,7 @@
-﻿using ClnRestaurante;
+﻿using CadRestaurante;
+using ClnRestaurante;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CpRestaurante
@@ -70,7 +65,7 @@ namespace CpRestaurante
             var menu = MenuCln.obtener(id);
             txtNombre.Text = menu.nombre;
             txtDescripcion.Text = menu.descripcion;
-           cbxTipoMenu.SelectedValue = menu.idTipoMenu;
+            cbxTipoMenu.SelectedValue = menu.idTipoMenu;
             nudPrecioVenta.Value = menu.precio;
 
             txtNombre.Focus();
@@ -140,12 +135,42 @@ namespace CpRestaurante
         {
             if (validar())
             {
-                
+                var menu = new CadRestaurante.Menu();
+                menu.nombre = txtNombre.Text.Trim();
+                menu.descripcion = txtDescripcion.Text.Trim();
+                menu.idTipoMenu = (int)cbxTipoMenu.SelectedValue;
+                menu.precio = nudPrecioVenta.Value;
+                menu.usuarioRegistro = "admin";
+                menu.fechaRegistro = DateTime.Now;
+                menu.estado = 1;
+
+                if (esNuevo)
+                {
+                    menu.fechaRegistro = DateTime.Now;
+                    menu.estado = 1;
+                    MenuCln.insertar(menu);
+                }
+                else
+                {
+                    menu.id = (int)dgvLista.CurrentRow.Cells["id"].Value;
+                    MenuCln.actualizar(menu);
+                }
+                listar();
+                btnCancelar.PerformClick();
+                MessageBox.Show("Menu guardado correctamente", "::: Mensaje - Restaurante :::", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            int id = (int)dgvLista.CurrentRow.Cells["id"].Value;
+            var resultado = MessageBox.Show("¿Está seguro de eliminar el menú seleccionado?", "::: Mensaje - Restaurante :::", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                MenuCln.eliminar(id, "admin");
+                listar();
+                MessageBox.Show("Menú eliminado correctamente", "::: Mensaje - Restaurante :::", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
         }
     }
