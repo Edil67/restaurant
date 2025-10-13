@@ -14,7 +14,7 @@ namespace ClnRestaurante
             using (var context = new LabRestauranteEntities())
             {
                 return context.TipoMenu
-                    .Where(x => x.id == 1)
+                    .Where(x => x.estado == 1)
                     .OrderBy(x => x.descripcion)
                     .ToList();
             }

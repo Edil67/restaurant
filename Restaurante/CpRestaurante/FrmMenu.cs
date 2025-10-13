@@ -157,7 +157,7 @@ namespace CpRestaurante
                 }
                 listar();
                 btnCancelar.PerformClick();
-                MessageBox.Show("Menu guardado correctamente", "::: Mensaje - Restaurante :::", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, "Menu guardado correctamente", "::: Mensaje - Restaurante :::", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -169,7 +169,7 @@ namespace CpRestaurante
             {
                 MenuCln.eliminar(id, "admin");
                 listar();
-                MessageBox.Show("Menú eliminado correctamente", "::: Mensaje - Restaurante :::", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, "Menú eliminado correctamente", "::: Mensaje - Restaurante :::", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
