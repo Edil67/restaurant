@@ -1,4 +1,5 @@
-﻿using ClnRestaurante;
+﻿using CadRestaurante;
+using ClnRestaurante;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -100,6 +101,79 @@ namespace CpRestaurante
         private void txtParametro_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter) listar();
+        }
+        private bool validar()
+        {
+            bool esValido = true;
+            erpNombre.Clear();
+            erpSegundoApellido.Clear();
+            erpPrimerApellido.Clear();
+            erpTelefono.Clear();
+            erpDireccion.Clear();
+            erpCargo.Clear();
+
+            if (string.IsNullOrEmpty(txtNombre.Text))
+            {
+                erpNombre.SetError(txtNombre, "El nombre es obligatorio");
+                esValido = false;
+            }
+            if (string.IsNullOrEmpty(txtPrimerApellido.Text))
+            {
+                erpPrimerApellido.SetError(txtPrimerApellido, "El primer apellido es obligatorio");
+                esValido = false;
+            }
+            if (string.IsNullOrEmpty(txtSegundoApellido.Text)) 
+            {
+                erpSegundoApellido.SetError(txtSegundoApellido, "El segundo apellido es obligatorio");
+                esValido = false;
+            }
+            if (string.IsNullOrEmpty(txtTelefono.Text))
+            {
+                erpTelefono.SetError(txtTelefono, "El teléfono es obligatorio");
+                esValido = false;
+            }
+            if (string.IsNullOrEmpty(txtDirección.Text))
+            {
+                erpDireccion.SetError(txtDirección, "La dirección es obligatoria");
+                esValido = false;
+            }
+            if (string.IsNullOrEmpty(cbxCargo.Text))
+            {
+                erpCargo.SetError(cbxCargo, "El cargo es obligatorio");
+                esValido = false;
+            }
+
+            return esValido;
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (validar())
+            {
+                var empleado = new Empleado();
+                empleado.nombre = txtNombre.Text.Trim();
+                empleado.primerApellido = txtPrimerApellido.Text.Trim();
+                empleado.segundoApellido = txtSegundoApellido.Text.Trim();
+                empleado.telefono = txtTelefono.Text.Trim();
+                empleado.direccion = txtDirección.Text.Trim();
+                empleado.cargo = cbxCargo.Text.Trim();
+                empleado.usuarioRegistro = "admin";
+
+                if (esNuevo)
+                {
+                    empleado.fechaRegistro = DateTime.Now;
+                    empleado.estado = 1;
+                    EmpleadoCln.insertar(empleado);
+                }
+                else
+                {
+                    empleado.id = (int)dgvLista.CurrentRow.Cells["id"].Value;
+                    EmpleadoCln.actualizar(empleado);
+                }
+                listar();
+                MessageBox.Show("Los datos se guardaron correctamente", "::: Mensaje - Restaurante :::",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

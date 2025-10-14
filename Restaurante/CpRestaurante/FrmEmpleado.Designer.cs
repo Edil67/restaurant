@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEmpleado));
-            this.erpPrecioVenta = new System.Windows.Forms.ErrorProvider(this.components);
-            this.erpDescripcion = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpNombre = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpPrimerApellido = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpSegundoApellido = new System.Windows.Forms.ErrorProvider(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpleado = new System.Windows.Forms.Label();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
@@ -53,34 +53,38 @@
             this.gbxListado = new System.Windows.Forms.GroupBox();
             this.dgvLista = new System.Windows.Forms.DataGridView();
             this.txtParametro = new System.Windows.Forms.TextBox();
-            this.erpTipoMenu = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpTelefono = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlAcciones = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpDescripcion)).BeginInit();
+            this.erpDireccion = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpCargo = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.erpNombre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpPrimerApellido)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpSegundoApellido)).BeginInit();
             this.gbxDatos.SuspendLayout();
             this.gbxListado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpTipoMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpTelefono)).BeginInit();
             this.pnlAcciones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.erpDireccion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCargo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // erpPrecioVenta
-            // 
-            this.erpPrecioVenta.ContainerControl = this;
-            // 
-            // erpDescripcion
-            // 
-            this.erpDescripcion.ContainerControl = this;
             // 
             // erpNombre
             // 
             this.erpNombre.ContainerControl = this;
+            // 
+            // erpPrimerApellido
+            // 
+            this.erpPrimerApellido.ContainerControl = this;
+            // 
+            // erpSegundoApellido
+            // 
+            this.erpSegundoApellido.ContainerControl = this;
             // 
             // label2
             // 
@@ -202,6 +206,7 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // cbxCargo
             // 
@@ -290,9 +295,9 @@
             this.txtParametro.TabIndex = 16;
             this.txtParametro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtParametro_KeyPress);
             // 
-            // erpTipoMenu
+            // erpTelefono
             // 
-            this.erpTipoMenu.ContainerControl = this;
+            this.erpTelefono.ContainerControl = this;
             // 
             // pnlAcciones
             // 
@@ -369,6 +374,14 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
+            // erpDireccion
+            // 
+            this.erpDireccion.ContainerControl = this;
+            // 
+            // erpCargo
+            // 
+            this.erpCargo.ContainerControl = this;
+            // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -387,15 +400,17 @@
             this.Name = "FrmEmpleado";
             this.Text = "FrmEmpleado";
             this.Load += new System.EventHandler(this.FrmEmpleado_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpDescripcion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpPrimerApellido)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpSegundoApellido)).EndInit();
             this.gbxDatos.ResumeLayout(false);
             this.gbxDatos.PerformLayout();
             this.gbxListado.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpTipoMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpTelefono)).EndInit();
             this.pnlAcciones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.erpDireccion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCargo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -403,7 +418,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ErrorProvider erpPrecioVenta;
+        private System.Windows.Forms.ErrorProvider erpNombre;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblEmpleado;
@@ -424,14 +439,16 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.ErrorProvider erpDescripcion;
-        private System.Windows.Forms.ErrorProvider erpNombre;
-        private System.Windows.Forms.ErrorProvider erpTipoMenu;
+        private System.Windows.Forms.ErrorProvider erpPrimerApellido;
+        private System.Windows.Forms.ErrorProvider erpSegundoApellido;
+        private System.Windows.Forms.ErrorProvider erpTelefono;
         private System.Windows.Forms.TextBox txtDirección;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label lbltelefono;
         private System.Windows.Forms.TextBox txtSegundoApellido;
         private System.Windows.Forms.Label lblCargo;
+        private System.Windows.Forms.ErrorProvider erpDireccion;
+        private System.Windows.Forms.ErrorProvider erpCargo;
     }
 }
