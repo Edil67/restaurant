@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Empleado.cs" />
     <Compile Include="EmpleadoCln.cs" />
     <Compile Include="MenuCln.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
