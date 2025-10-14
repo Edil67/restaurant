@@ -67,7 +67,7 @@ namespace CpRestaurante
             txtSegundoApellido.Text = empleado.segundoApellido;
             txtTelefono.Text = empleado.telefono;
             txtDirección.Text = empleado.direccion;
-            cbxCargo.Text = empleado.cargo;
+            txtCargo.Text = empleado.cargo;
 
             txtNombre.Focus();
         }
@@ -78,7 +78,7 @@ namespace CpRestaurante
             txtSegundoApellido.Clear();
             txtTelefono.Clear();
             txtDirección.Clear();
-            cbxCargo.SelectedIndex = -1;
+            txtCargo.Clear();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -93,11 +93,7 @@ namespace CpRestaurante
             listar();
         }
 
-        private void btnCerrar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
+        
         private void txtParametro_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter) listar();
@@ -137,9 +133,9 @@ namespace CpRestaurante
                 erpDireccion.SetError(txtDirección, "La dirección es obligatoria");
                 esValido = false;
             }
-            if (string.IsNullOrEmpty(cbxCargo.Text))
+            if (string.IsNullOrEmpty(txtCargo.Text))
             {
-                erpCargo.SetError(cbxCargo, "El cargo es obligatorio");
+                erpCargo.SetError(txtCargo, "El cargo es obligatorio");
                 esValido = false;
             }
 
@@ -156,7 +152,7 @@ namespace CpRestaurante
                 empleado.segundoApellido = txtSegundoApellido.Text.Trim();
                 empleado.telefono = txtTelefono.Text.Trim();
                 empleado.direccion = txtDirección.Text.Trim();
-                empleado.cargo = cbxCargo.Text.Trim();
+                empleado.cargo = txtCargo.Text.Trim();
                 empleado.usuarioRegistro = "admin";
 
                 if (esNuevo)
@@ -174,6 +170,25 @@ namespace CpRestaurante
                 MessageBox.Show("Los datos se guardaron correctamente", "::: Mensaje - Restaurante :::",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            int id = (int)dgvLista.CurrentRow.Cells["id"].Value;
+            string nombre = (string)dgvLista.CurrentRow.Cells["nombre"].Value.ToString();
+            DialogResult dialog = MessageBox.Show("¿Está seguro de eliminar al empleado " + nombre + "?", "::: Mensaje - Restaurante :::",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                EmpleadoCln.eliminar(id, "admin");
+                listar();
+                MessageBox.Show("Los datos se eliminaron correctamente", "::: Mensaje - Restaurante :::",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

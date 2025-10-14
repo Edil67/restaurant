@@ -44,9 +44,7 @@
             this.lbltelefono = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.cbxCargo = new System.Windows.Forms.ComboBox();
             this.txtPrimerApellido = new System.Windows.Forms.TextBox();
-            this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblSegundoApellido = new System.Windows.Forms.Label();
             this.lblPrimerApellido = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
@@ -62,6 +60,8 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.erpDireccion = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCargo = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtCargo = new System.Windows.Forms.TextBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpPrimerApellido)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpSegundoApellido)).BeginInit();
@@ -91,9 +91,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(34, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(138, 13);
+            this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Buscar por Nombre o Cargo";
+            this.label2.Text = "Buscar por Nombre:";
             // 
             // lblEmpleado
             // 
@@ -109,6 +109,8 @@
             // 
             // gbxDatos
             // 
+            this.gbxDatos.Controls.Add(this.txtNombre);
+            this.gbxDatos.Controls.Add(this.txtCargo);
             this.gbxDatos.Controls.Add(this.lblCargo);
             this.gbxDatos.Controls.Add(this.txtSegundoApellido);
             this.gbxDatos.Controls.Add(this.txtDirección);
@@ -117,9 +119,7 @@
             this.gbxDatos.Controls.Add(this.lbltelefono);
             this.gbxDatos.Controls.Add(this.btnCancelar);
             this.gbxDatos.Controls.Add(this.btnGuardar);
-            this.gbxDatos.Controls.Add(this.cbxCargo);
             this.gbxDatos.Controls.Add(this.txtPrimerApellido);
-            this.gbxDatos.Controls.Add(this.txtNombre);
             this.gbxDatos.Controls.Add(this.lblSegundoApellido);
             this.gbxDatos.Controls.Add(this.lblPrimerApellido);
             this.gbxDatos.Controls.Add(this.lblNombre);
@@ -142,7 +142,7 @@
             // txtSegundoApellido
             // 
             this.txtSegundoApellido.Location = new System.Drawing.Point(144, 86);
-            this.txtSegundoApellido.MaxLength = 200;
+            this.txtSegundoApellido.MaxLength = 15;
             this.txtSegundoApellido.Multiline = true;
             this.txtSegundoApellido.Name = "txtSegundoApellido";
             this.txtSegundoApellido.Size = new System.Drawing.Size(196, 25);
@@ -151,7 +151,7 @@
             // txtDirección
             // 
             this.txtDirección.Location = new System.Drawing.Point(422, 56);
-            this.txtDirección.MaxLength = 200;
+            this.txtDirección.MaxLength = 20;
             this.txtDirección.Multiline = true;
             this.txtDirección.Name = "txtDirección";
             this.txtDirección.Size = new System.Drawing.Size(169, 25);
@@ -169,6 +169,7 @@
             // txtTelefono
             // 
             this.txtTelefono.Location = new System.Drawing.Point(422, 20);
+            this.txtTelefono.MaxLength = 8;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(169, 20);
             this.txtTelefono.TabIndex = 12;
@@ -208,32 +209,14 @@
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // cbxCargo
-            // 
-            this.cbxCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxCargo.FormattingEnabled = true;
-            this.cbxCargo.Location = new System.Drawing.Point(422, 94);
-            this.cbxCargo.Name = "cbxCargo";
-            this.cbxCargo.Size = new System.Drawing.Size(169, 21);
-            this.cbxCargo.TabIndex = 5;
-            // 
             // txtPrimerApellido
             // 
             this.txtPrimerApellido.Location = new System.Drawing.Point(144, 47);
-            this.txtPrimerApellido.MaxLength = 200;
+            this.txtPrimerApellido.MaxLength = 15;
             this.txtPrimerApellido.Multiline = true;
             this.txtPrimerApellido.Name = "txtPrimerApellido";
             this.txtPrimerApellido.Size = new System.Drawing.Size(196, 25);
             this.txtPrimerApellido.TabIndex = 4;
-            // 
-            // txtNombre
-            // 
-            this.txtNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNombre.Location = new System.Drawing.Point(144, 17);
-            this.txtNombre.MaxLength = 20;
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(196, 20);
-            this.txtNombre.TabIndex = 3;
             // 
             // lblSegundoApellido
             // 
@@ -334,6 +317,7 @@
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnEditar
             // 
@@ -382,6 +366,24 @@
             // 
             this.erpCargo.ContainerControl = this;
             // 
+            // txtCargo
+            // 
+            this.txtCargo.Location = new System.Drawing.Point(422, 94);
+            this.txtCargo.MaxLength = 20;
+            this.txtCargo.Multiline = true;
+            this.txtCargo.Name = "txtCargo";
+            this.txtCargo.Size = new System.Drawing.Size(169, 25);
+            this.txtCargo.TabIndex = 17;
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Location = new System.Drawing.Point(144, 12);
+            this.txtNombre.MaxLength = 20;
+            this.txtNombre.Multiline = true;
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(196, 25);
+            this.txtNombre.TabIndex = 18;
+            // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -425,9 +427,7 @@
         private System.Windows.Forms.GroupBox gbxDatos;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.ComboBox cbxCargo;
         private System.Windows.Forms.TextBox txtPrimerApellido;
-        private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblSegundoApellido;
         private System.Windows.Forms.Label lblPrimerApellido;
         private System.Windows.Forms.Label lblNombre;
@@ -450,5 +450,7 @@
         private System.Windows.Forms.Label lblCargo;
         private System.Windows.Forms.ErrorProvider erpDireccion;
         private System.Windows.Forms.ErrorProvider erpCargo;
+        private System.Windows.Forms.TextBox txtCargo;
+        private System.Windows.Forms.TextBox txtNombre;
     }
 }
