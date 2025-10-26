@@ -92,6 +92,9 @@
     <Compile Include="paPedidosListar_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="paTipoMenuListar_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="paUsuariosListar_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>

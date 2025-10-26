@@ -18,7 +18,9 @@ namespace CadRestaurante
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public string tipoMenu { get; set; }
+        public string imagen { get; set; }
         public decimal precio { get; set; }
+        public int stock { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
         public short estado { get; set; }

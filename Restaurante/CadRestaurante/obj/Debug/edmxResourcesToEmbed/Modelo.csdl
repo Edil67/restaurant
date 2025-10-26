@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LabRestauranteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="primerApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="segundoApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cedulaIdentidad" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estado" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Pedidos" Relationship="Self.fk_Pedido_Cliente" FromRole="Cliente" ToRole="Pedidos" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="primerApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="segundoApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estado" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Pedidos" Relationship="Self.fk_Pedido_Empleado" FromRole="Empleado" ToRole="Pedidos" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.fk_Usuarios_Empleado" FromRole="Empleado" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="imagen" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="idTipoMenu" Type="Int32" Nullable="false" />
+    <Property Name="precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="stock" Type="Int32" Nullable="false" />
+    <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estado" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="TipoMenu" Relationship="Self.fk_Menu_TipoMenu" FromRole="Menu" ToRole="TipoMenu" />
+    <NavigationProperty Name="PedidoDetalle" Relationship="Self.fk_PedidoDetalle_Menu" FromRole="Menu" ToRole="PedidoDetalle" />
+  </EntityType>
+  <EntityType Name="PedidoDetalle">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idPedido" Type="Int32" Nullable="false" />
+    <Property Name="idMenu" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <Property Name="subtotal" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Menu" Relationship="Self.fk_PedidoDetalle_Menu" FromRole="PedidoDetalle" ToRole="Menu" />
+    <NavigationProperty Name="Pedidos" Relationship="Self.fk_PedidoDetalle_Pedido" FromRole="PedidoDetalle" ToRole="Pedidos" />
+  </EntityType>
+  <EntityType Name="Pedidos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idCliente" Type="Int32" Nullable="false" />
+    <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+    <Property Name="fechaPedido" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="total" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estado" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.fk_Pedido_Cliente" FromRole="Pedidos" ToRole="Cliente" />
+    <NavigationProperty Name="Empleado" Relationship="Self.fk_Pedido_Empleado" FromRole="Pedidos" ToRole="Empleado" />
+    <NavigationProperty Name="PedidoDetalle" Relationship="Self.fk_PedidoDetalle_Pedido" FromRole="Pedidos" ToRole="PedidoDetalle" />
+  </EntityType>
+  <EntityType Name="TipoMenu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estado" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Menu" Relationship="Self.fk_Menu_TipoMenu" FromRole="TipoMenu" ToRole="Menu" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+    <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estado" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Empleado" Relationship="Self.fk_Usuarios_Empleado" FromRole="Usuarios" ToRole="Empleado" />
+  </EntityType>
+  <Association Name="fk_Pedido_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="idCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Pedido_Empleado">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+    <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="idEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Usuarios_Empleado">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="idEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Menu_TipoMenu">
+    <End Role="TipoMenu" Type="Self.TipoMenu" Multiplicity="1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMenu">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="idTipoMenu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PedidoDetalle_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+    <End Role="PedidoDetalle" Type="Self.PedidoDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PedidoDetalle">
+        <PropertyRef Name="idMenu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PedidoDetalle_Pedido">
+    <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+    <End Role="PedidoDetalle" Type="Self.PedidoDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedidos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PedidoDetalle">
+        <PropertyRef Name="idPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LabRestauranteEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" />
+    <EntitySet Name="PedidoDetalle" EntityType="Self.PedidoDetalle" />
+    <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+    <EntitySet Name="TipoMenu" EntityType="Self.TipoMenu" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <AssociationSet Name="fk_Pedido_Cliente" Association="Self.fk_Pedido_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Pedidos" EntitySet="Pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Pedido_Empleado" Association="Self.fk_Pedido_Empleado">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="Pedidos" EntitySet="Pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Usuarios_Empleado" Association="Self.fk_Usuarios_Empleado">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Menu_TipoMenu" Association="Self.fk_Menu_TipoMenu">
+      <End Role="TipoMenu" EntitySet="TipoMenu" />
+      <End Role="Menu" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PedidoDetalle_Menu" Association="Self.fk_PedidoDetalle_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="PedidoDetalle" EntitySet="PedidoDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PedidoDetalle_Pedido" Association="Self.fk_PedidoDetalle_Pedido">
+      <End Role="Pedidos" EntitySet="Pedidos" />
+      <End Role="PedidoDetalle" EntitySet="PedidoDetalle" />
+    </AssociationSet>
+    <FunctionImport Name="paClienteListar" ReturnType="Collection(LabRestauranteModel.paClienteListar_Result)">
+      <Parameter Name="parametro" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="paEmpleadoListar" ReturnType="Collection(LabRestauranteModel.paEmpleadoListar_Result)">
+      <Parameter Name="parametro" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="paMenuListar" ReturnType="Collection(LabRestauranteModel.paMenuListar_Result)">
+      <Parameter Name="parametro" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="paPedidoDetalleListar" ReturnType="Collection(LabRestauranteModel.paPedidoDetalleListar_Result)">
+      <Parameter Name="idPedido" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="paPedidosListar" ReturnType="Collection(LabRestauranteModel.paPedidosListar_Result)">
+      <Parameter Name="parametro" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="paTipoMenuListar" ReturnType="Collection(LabRestauranteModel.paTipoMenuListar_Result)">
+      <Parameter Name="parametro" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="paUsuariosListar" ReturnType="Collection(LabRestauranteModel.paUsuariosListar_Result)">
+      <Parameter Name="parametro" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="paClienteListar_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="nombreCliente" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="primerApellido" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="segundoApellido" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="cedulaIdentidad" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+    <Property Type="Int16" Name="estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="paEmpleadoListar_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="primerApellido" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="segundoApellido" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="telefono" Nullable="false" MaxLength="8" />
+    <Property Type="String" Name="direccion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="cargo" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+    <Property Type="Int16" Name="estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="paMenuListar_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="idTipoMenu" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="descripcion" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="tipoMenu" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="imagen" Nullable="true" MaxLength="200" />
+    <Property Type="Decimal" Name="precio" Nullable="false" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="stock" Nullable="false" />
+    <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+    <Property Type="Int16" Name="estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="paPedidoDetalleListar_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="idPedido" Nullable="false" />
+    <Property Type="String" Name="menu" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="tipo" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="cantidad" Nullable="false" />
+    <Property Type="Decimal" Name="subtotal" Nullable="true" Precision="10" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="paPedidosListar_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="cliente" Nullable="false" MaxLength="112" />
+    <Property Type="String" Name="empleado" Nullable="false" MaxLength="92" />
+    <Property Type="DateTime" Name="fechaPedido" Nullable="false" Precision="23" />
+    <Property Type="Decimal" Name="total" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Int16" Name="estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="paTipoMenuListar_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+    <Property Type="Int16" Name="estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="paUsuariosListar_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="empleado" Nullable="false" MaxLength="61" />
+    <Property Type="String" Name="usuario" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="clave" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+    <Property Type="Int16" Name="estado" Nullable="false" />
+  </ComplexType>
+</Schema>

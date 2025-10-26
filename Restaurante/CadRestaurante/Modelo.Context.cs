@@ -80,6 +80,15 @@ namespace CadRestaurante
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paPedidosListar_Result>("paPedidosListar", parametroParameter);
         }
     
+        public virtual ObjectResult<paTipoMenuListar_Result> paTipoMenuListar(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paTipoMenuListar_Result>("paTipoMenuListar", parametroParameter);
+        }
+    
         public virtual ObjectResult<paUsuariosListar_Result> paUsuariosListar(string parametro)
         {
             var parametroParameter = parametro != null ?

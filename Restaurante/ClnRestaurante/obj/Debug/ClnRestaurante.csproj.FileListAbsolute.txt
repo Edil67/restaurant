@@ -1,0 +1,15 @@
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\obj\Debug\ClnRestaurante.csproj.AssemblyReference.cache
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\obj\Debug\ClnRestaurante.csproj.CoreCompileInputs.cache
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\ClnRestaurante.dll.config
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\ClnRestaurante.dll
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\ClnRestaurante.pdb
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\CadRestaurante.dll
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\EntityFramework.dll
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\EntityFramework.SqlServer.dll
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\CadRestaurante.pdb
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\CadRestaurante.dll.config
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\EntityFramework.xml
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\bin\Debug\EntityFramework.SqlServer.xml
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\obj\Debug\ClnResta.2B664A93.Up2Date
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\obj\Debug\ClnRestaurante.dll
+E:\Sis457_Restaurante\Restaurante\ClnRestaurante\obj\Debug\ClnRestaurante.pdb

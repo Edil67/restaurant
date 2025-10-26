@@ -10,11 +10,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombreCliente" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="primerApellido" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="segundoApellido" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="cedulaIdentidad" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
         </EntityType>
@@ -29,7 +29,7 @@
           <Property Name="telefono" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="direccion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cargo" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
         </EntityType>
@@ -40,9 +40,11 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="imagen" Type="varchar" MaxLength="200" />
           <Property Name="idTipoMenu" Type="int" Nullable="false" />
           <Property Name="precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
         </EntityType>
@@ -65,7 +67,7 @@
           <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="fechaPedido" Type="datetime" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="usuarioRegistro" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
         </EntityType>
@@ -87,7 +89,7 @@
           <Property Name="usuario" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="clave" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
         </EntityType>
@@ -178,6 +180,9 @@
         <Function Name="paPedidosListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="paTipoMenuListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parametro" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="paUsuariosListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
@@ -224,11 +229,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombreCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="primerApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="segundoApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cedulaIdentidad" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Pedidos" Relationship="Self.fk_Pedido_Cliente" FromRole="Cliente" ToRole="Pedidos" />
@@ -244,7 +249,7 @@
           <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Pedidos" Relationship="Self.fk_Pedido_Empleado" FromRole="Empleado" ToRole="Pedidos" />
@@ -257,9 +262,11 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="imagen" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="idTipoMenu" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stock" Type="Int32" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="TipoMenu" Relationship="Self.fk_Menu_TipoMenu" FromRole="Menu" ToRole="TipoMenu" />
@@ -286,7 +293,7 @@
           <Property Name="idEmpleado" Type="Int32" Nullable="false" />
           <Property Name="fechaPedido" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="usuarioRegistro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.fk_Pedido_Cliente" FromRole="Pedidos" ToRole="Cliente" />
@@ -312,7 +319,7 @@
           <Property Name="usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idEmpleado" Type="Int32" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Empleado" Relationship="Self.fk_Usuarios_Empleado" FromRole="Usuarios" ToRole="Empleado" />
@@ -436,17 +443,20 @@
           <FunctionImport Name="paPedidosListar" ReturnType="Collection(LabRestauranteModel.paPedidosListar_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="paTipoMenuListar" ReturnType="Collection(LabRestauranteModel.paTipoMenuListar_Result)">
+            <Parameter Name="parametro" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="paUsuariosListar" ReturnType="Collection(LabRestauranteModel.paUsuariosListar_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="paClienteListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombreCliente" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="primerApellido" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="segundoApellido" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="cedulaIdentidad" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
         </ComplexType>
@@ -458,7 +468,7 @@
           <Property Type="String" Name="telefono" Nullable="false" MaxLength="8" />
           <Property Type="String" Name="direccion" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="cargo" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
         </ComplexType>
@@ -468,8 +478,10 @@
           <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="descripcion" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="tipoMenu" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="imagen" Nullable="true" MaxLength="200" />
           <Property Type="Decimal" Name="precio" Nullable="false" Precision="10" Scale="2" />
-          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="stock" Nullable="false" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
         </ComplexType>
@@ -483,18 +495,25 @@
         </ComplexType>
         <ComplexType Name="paPedidosListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="cliente" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="empleado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="cliente" Nullable="false" MaxLength="112" />
+          <Property Type="String" Name="empleado" Nullable="false" MaxLength="92" />
           <Property Type="DateTime" Name="fechaPedido" Nullable="false" Precision="23" />
           <Property Type="Decimal" Name="total" Nullable="true" Precision="10" Scale="2" />
           <Property Type="Int16" Name="estado" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="paTipoMenuListar_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="Int16" Name="estado" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="paUsuariosListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="empleado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="empleado" Nullable="false" MaxLength="61" />
           <Property Type="String" Name="usuario" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="clave" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
         </ComplexType>
@@ -508,7 +527,7 @@
             <EntityTypeMapping TypeName="LabRestauranteModel.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombreCliente" ColumnName="nombreCliente" />
                 <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
                 <ScalarProperty Name="segundoApellido" ColumnName="segundoApellido" />
                 <ScalarProperty Name="cedulaIdentidad" ColumnName="cedulaIdentidad" />
@@ -540,8 +559,10 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
                 <ScalarProperty Name="idTipoMenu" ColumnName="idTipoMenu" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
@@ -601,7 +622,7 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="LabRestauranteModel.paClienteListar_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombreCliente" ColumnName="nombreCliente" />
                 <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
                 <ScalarProperty Name="segundoApellido" ColumnName="segundoApellido" />
                 <ScalarProperty Name="cedulaIdentidad" ColumnName="cedulaIdentidad" />
@@ -635,7 +656,9 @@
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="tipoMenu" ColumnName="tipoMenu" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
@@ -662,6 +685,17 @@
                 <ScalarProperty Name="empleado" ColumnName="empleado" />
                 <ScalarProperty Name="fechaPedido" ColumnName="fechaPedido" />
                 <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="paTipoMenuListar" FunctionName="LabRestauranteModel.Store.paTipoMenuListar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LabRestauranteModel.paTipoMenuListar_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </ComplexTypeMapping>
             </ResultMapping>

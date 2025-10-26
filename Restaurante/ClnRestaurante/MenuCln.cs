@@ -9,15 +9,13 @@ namespace ClnRestaurante
 {
     public class MenuCln
     {
-        private static object[] id;
-
         public static int insertar(Menu menu)
         {
             using (var context = new LabRestauranteEntities())
             {
                 context.Menu.Add(menu);
                 context.SaveChanges();
-                return context.SaveChanges();
+                return menu.id;
             }
         }
         public static int actualizar(Menu menu)
@@ -28,7 +26,9 @@ namespace ClnRestaurante
                 existente.idTipoMenu = menu.idTipoMenu;
                 existente.nombre = menu.nombre;
                 existente.descripcion = menu.descripcion;
+                existente.imagen = menu.imagen;
                 existente.precio = menu.precio;
+                existente.stock = menu.stock;
                 existente.usuarioRegistro = menu.usuarioRegistro;
                 return context.SaveChanges();
             }
@@ -61,7 +61,9 @@ namespace ClnRestaurante
         {
             using (var context = new LabRestauranteEntities())
             {
-                return context.paMenuListar(parametro).ToList();
+                return context.paMenuListar(parametro)
+                      .Where(x => x.estado == 1)
+                      .ToList();
             }
         }
     }

@@ -2,13 +2,14 @@
 CREATE DATABASE LabRestaurante;
 GO
 
-USE master;
+USE [master];
 GO
 
-CREATE LOGIN usrrestaurante WITH PASSWORD = N'123456',
-    DEFAULT_DATABASE = LabRestaurante,
-    CHECK_EXPIRATION = OFF,
-    CHECK_POLICY = ON;
+CREATE LOGIN usrrestaurante 
+WITH PASSWORD = N'123456',
+     DEFAULT_DATABASE = LabRestaurante,
+     CHECK_EXPIRATION = OFF,
+     CHECK_POLICY = ON;
 GO
 
 USE LabRestaurante;
@@ -20,8 +21,6 @@ ALTER ROLE db_owner ADD MEMBER usrrestaurante;
 GO
 
 
--- ELIMINAR TABLAS EXISTENTES (si las hay)
-
 DROP TABLE IF EXISTS PedidoDetalle;
 DROP TABLE IF EXISTS Pedidos;
 DROP TABLE IF EXISTS Usuarios;
@@ -32,26 +31,24 @@ DROP TABLE IF EXISTS TipoMenu;
 GO
 
 
--- TABLA: TipoMenu
-
 CREATE TABLE TipoMenu (
     id INT PRIMARY KEY IDENTITY(1,1),
-    descripcion VARCHAR(30) NOT NULL UNIQUE,
+    descripcion VARCHAR(30) NOT NULL,
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
-    estado SMALLINT NOT NULL DEFAULT 1 -- -1: Eliminado, 0: Inactivo, 1: Activo
+    estado SMALLINT NOT NULL DEFAULT 1
 );
 GO
 
-
--- TABLA: Menu
 
 CREATE TABLE Menu (
     id INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(50) NOT NULL,
     descripcion VARCHAR(100),
+    imagen VARCHAR(200) NULL,
     idTipoMenu INT NOT NULL,
     precio DECIMAL(10,2) NOT NULL CHECK (precio > 0),
+    stock INT NOT NULL DEFAULT 0,
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1,
@@ -60,11 +57,9 @@ CREATE TABLE Menu (
 GO
 
 
--- TABLA: Cliente
-
 CREATE TABLE Cliente (
     id INT PRIMARY KEY IDENTITY(1,1),
-    nombre VARCHAR(50) NOT NULL,
+    nombreCliente VARCHAR(50) NOT NULL,
     primerApellido VARCHAR(30) NOT NULL,
     segundoApellido VARCHAR(30) NOT NULL,
     cedulaIdentidad VARCHAR(15) NOT NULL UNIQUE,
@@ -74,8 +69,6 @@ CREATE TABLE Cliente (
 );
 GO
 
-
--- TABLA: Empleado
 
 CREATE TABLE Empleado (
     id INT PRIMARY KEY IDENTITY(1,1),
@@ -92,8 +85,6 @@ CREATE TABLE Empleado (
 GO
 
 
--- TABLA: Usuarios
-
 CREATE TABLE Usuarios (
     id INT PRIMARY KEY IDENTITY(1,1),
     usuario VARCHAR(30) NOT NULL,
@@ -106,8 +97,6 @@ CREATE TABLE Usuarios (
 );
 GO
 
-
--- TABLA: Pedidos
 
 CREATE TABLE Pedidos (
     id INT PRIMARY KEY IDENTITY(1,1),
@@ -124,8 +113,6 @@ CREATE TABLE Pedidos (
 GO
 
 
--- TABLA: PedidoDetalle
-
 CREATE TABLE PedidoDetalle (
     id INT PRIMARY KEY IDENTITY(1,1),
     idPedido INT NOT NULL,
@@ -137,8 +124,6 @@ CREATE TABLE PedidoDetalle (
 );
 GO
 
-
--- TRIGGER: Calcular Subtotal
 
 CREATE TRIGGER trg_CalcularSubtotal
 ON PedidoDetalle
@@ -154,8 +139,6 @@ END;
 GO
 
 
--- DATOS DE PRUEBA
-
 INSERT INTO TipoMenu(descripcion) VALUES
 ('Entrada'),
 ('Plato Fuerte'),
@@ -165,7 +148,7 @@ INSERT INTO TipoMenu(descripcion) VALUES
 
 INSERT INTO Empleado (nombre, primerApellido, segundoApellido, telefono, direccion, cargo)
 VALUES 
-('Paola', 'Duran', 'Rojas', '78963254', 'Avaroa 47', 'Gerente'),
+('Luis', 'Maturano', 'Rojas', '78963254', 'Avaroa 47', 'Gerente'),
 ('Micaela', 'Mamani', 'Perez', '78925478', 'Mendizabal 7', 'Cajera');
 
 INSERT INTO Cliente (nombre, primerApellido, segundoApellido, cedulaIdentidad)
@@ -174,11 +157,11 @@ VALUES
 ('Pablo', 'Padilla', 'Arandia', '14181236'),
 ('Mariana', 'Velazco', 'Gutierrez', '7895411');
 
-INSERT INTO Menu (nombre, descripcion, idTipoMenu, precio)
+INSERT INTO Menu (nombre, descripcion, idTipoMenu, precio, stock)
 VALUES 
-('Lasaña', 'Pasta al horno con carne y queso', 2, 45.00),
-('Sopa de Maní', 'Sopa tradicional boliviana con maní y papas fritas', 3, 25.00),
-('Flan', 'Postre con caramelo', 4, 15.00);
+('Lasaña', 'Pasta al horno con carne y queso', 2, 45.00, 23),
+('Sopa de Maní', 'Sopa tradicional boliviana con maní y papas fritas', 3, 25.00, 10),
+('Flan', 'Postre con caramelo', 4, 15.00, 20);
 
 INSERT INTO Pedidos (idCliente, idEmpleado, total)
 VALUES 
@@ -190,12 +173,14 @@ VALUES
 (1, 1, 2),
 (1, 3, 1),
 (2, 2, 3);
+
+INSERT INTO Usuarios (idEmpleado, usuario, clave)
+VALUES 
+(1, 'lmaturano', 'i0hcoO/nssY6WOs9pOp5Xw==');
 GO
 
 
--- PROCEDIMIENTOS ALMACENADOS
-
-
+DROP PROC IF EXISTS paTipoMenuListar;
 DROP PROC IF EXISTS paClienteListar;
 DROP PROC IF EXISTS paEmpleadoListar;
 DROP PROC IF EXISTS paMenuListar;
@@ -204,67 +189,116 @@ DROP PROC IF EXISTS paPedidosListar;
 DROP PROC IF EXISTS paPedidoDetalleListar;
 GO
 
-CREATE PROC paClienteListar @parametro VARCHAR(50)
+
+CREATE PROC paTipoMenuListar @parametro VARCHAR(100)
 AS
 BEGIN
-    SELECT id, nombre, primerApellido, segundoApellido, cedulaIdentidad, usuarioRegistro, fechaRegistro, estado
-    FROM Cliente
-    WHERE estado <> -1 AND nombre LIKE '%' + REPLACE(@parametro,' ','%') + '%';
+    SELECT *
+    FROM TipoMenu
+    WHERE estado <> -1 
+      AND descripcion LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
+    ORDER BY estado DESC, descripcion ASC;
 END;
 GO
+
+
+ALTER PROC paClienteListar 
+    @parametro VARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        id, 
+        nombreCliente, 
+        primerApellido, 
+        segundoApellido, 
+        cedulaIdentidad, 
+        usuarioRegistro, 
+        fechaRegistro, 
+        estado
+    FROM Cliente
+    WHERE estado <> -1 
+      AND (COALESCE(nombreCliente,'') + ' ' + COALESCE(primerApellido,'') + ' ' + COALESCE(segundoApellido,'')) 
+          LIKE '%' + REPLACE(@parametro, ' ', '%') + '%';
+END;
+GO
+
+
 
 CREATE PROC paEmpleadoListar @parametro VARCHAR(50)
 AS
 BEGIN
     SELECT id, nombre, primerApellido, segundoApellido, telefono, direccion, cargo, usuarioRegistro, fechaRegistro, estado
     FROM Empleado
-    WHERE estado <> -1 AND nombre LIKE '%' + REPLACE(@parametro,' ','%') + '%';
+    WHERE estado <> -1 
+      AND (nombre + ' ' + primerApellido + ' ' + segundoApellido) 
+          LIKE '%' + REPLACE(@parametro,' ','%') + '%';
 END;
 GO
 
-GO
-DROP PROC IF EXISTS paMenuListar;
-GO
-CREATE PROC paMenuListar @parametro VARCHAR(50)
+
+CREATE PROC paMenuListar @parametro VARCHAR(100)
 AS
-SELECT 
-    m.id, 
-    m.idTipoMenu,
-    m.nombre, 
-    m.descripcion,
-    t.descripcion AS tipoMenu,  
-    m.precio, 
-    m.usuarioRegistro, 
-    m.fechaRegistro, 
-    m.estado
-FROM Menu m
-INNER JOIN TipoMenu t ON t.id = m.idTipoMenu
-WHERE m.estado > -1 
-  AND (m.nombre + t.descripcion) LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
-ORDER BY m.estado DESC, m.nombre ASC;
+BEGIN
+    SELECT 
+        m.id, 
+        m.idTipoMenu,
+        m.nombre, 
+        m.descripcion,
+        t.descripcion AS tipoMenu,  
+        m.imagen,
+        m.precio, 
+        m.stock,
+        m.usuarioRegistro, 
+        m.fechaRegistro, 
+        m.estado
+    FROM Menu m
+    INNER JOIN TipoMenu t ON t.id = m.idTipoMenu
+    WHERE m.estado = 1
+      AND (COALESCE(m.nombre, '') + ' ' + COALESCE(t.descripcion, '')) 
+          LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
+    ORDER BY m.nombre ASC;
+END;
 GO
 
 
 CREATE PROC paUsuariosListar @parametro VARCHAR(50)
 AS
 BEGIN
-    SELECT us.id, em.nombre AS empleado, us.usuario, us.clave, us.usuarioRegistro, us.fechaRegistro, us.estado
+    SELECT 
+        us.id, 
+        em.nombre + ' ' + em.primerApellido AS empleado, 
+        us.usuario, 
+        us.clave, 
+        us.usuarioRegistro, 
+        us.fechaRegistro, 
+        us.estado
     FROM Usuarios us
     INNER JOIN Empleado em ON us.idEmpleado = em.id
-    WHERE us.estado <> -1 AND us.usuario LIKE '%' + REPLACE(@parametro,' ','%') + '%';
+    WHERE us.estado <> -1 
+      AND us.usuario LIKE '%' + REPLACE(@parametro,' ','%') + '%';
 END;
 GO
 
-CREATE PROC paPedidosListar @parametro VARCHAR(50)
+
+alter PROC paPedidosListar @parametro VARCHAR(50)
 AS
 BEGIN
-    SELECT p.id, c.nombre AS cliente, e.nombre AS empleado, p.fechaPedido, p.total, p.estado
+    SELECT 
+        p.id, 
+        (c.nombreCliente + ' ' + c.primerApellido + ISNULL(' ' + c.segundoApellido, '')) AS cliente,
+        (e.nombre + ' ' + e.primerApellido + ISNULL(' ' + e.segundoApellido, '')) AS empleado,
+        p.fechaPedido, 
+        p.total, 
+        p.estado
     FROM Pedidos p
     INNER JOIN Cliente c ON p.idCliente = c.id
     INNER JOIN Empleado e ON p.idEmpleado = e.id
-    WHERE p.estado <> -1 AND c.nombre LIKE '%' + REPLACE(@parametro,' ','%') + '%';
+    WHERE p.estado <> -1 
+      AND (c.nombreCliente+ ' ' + c.primerApellido + ' ' + c.segundoApellido)
+          LIKE '%' + REPLACE(@parametro,' ','%') + '%';
 END;
 GO
+
 
 CREATE PROC paPedidoDetalleListar @idPedido INT
 AS
@@ -284,20 +318,17 @@ END;
 GO
 
 
--- ACTUALIZAR TOTALES DE PEDIDOS
-
 UPDATE p
 SET total = (SELECT SUM(subtotal) FROM PedidoDetalle WHERE idPedido = p.id)
 FROM Pedidos p;
 GO
 
 
--- CONSULTAS DE PRUEBA
-
-SELECT * FROM TipoMenu;
-SELECT * FROM Cliente;
-SELECT * FROM Empleado;
-SELECT * FROM Menu;
-SELECT * FROM Pedidos;
-SELECT * FROM PedidoDetalle;
+EXEC paClienteListar @parametro = '';
+EXEC paEmpleadoListar @parametro = '';
+EXEC paMenuListar @parametro = '';
+EXEC paUsuariosListar @parametro = '';
+EXEC paPedidosListar @parametro = '';
+EXEC paPedidoDetalleListar @idPedido = 1;
 GO
+select * from cliente
